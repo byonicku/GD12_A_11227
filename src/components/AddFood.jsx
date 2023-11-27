@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, Button, Modal, Form, Col, Row, Container, FormLabel  } from 'react-bootstrap';
-import { FaPlusSquare, FaTrash, FaEdit } from "react-icons/fa";
+import { FaPlusSquare, FaTrash, FaEdit, FaSave } from "react-icons/fa";
 import { toast } from "sonner";
 
 import Appetizer from "./../assets/images/appetizer.jpg";
@@ -131,7 +131,7 @@ const AddFood = () => {
                             <h5>{value.nama}</h5>
                             <p className="border-bottom pb-lg-auto">{value.deskripsi}</p>
                             <p className="mb-2">
-                                Kategori: <strong>{value.kategori}</strong> · Base Price:{' '}
+                                Kategori: <strong>{value.kategori}</strong> · Harga:{' '}
                                 <strong>{`Rp. ${value.harga
                                 .toString()
                                 .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`}</strong>
@@ -163,32 +163,36 @@ const AddFood = () => {
                 ))}
         </div>
 
-        <Modal show={showModal} onHide={handleCloseModal} onExit={defaultVal} style={{ }}>
+        <Modal show={showModal} 
+                onHide={handleCloseModal} 
+                onExit={defaultVal}
+                size="lg">
             <Modal.Header closeButton>
-                <Modal.Title>Tambah Menu</Modal.Title>
+                <Modal.Title>{editIndex == -1 ? 'Tambah' : 'Edit'} Menu</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <Form onSubmit={editIndex == -1 ? handleAdd : handleShowEdit}>
-                    <Row className="mb-4">
-                        <Form.Label className="my-auto">
+            <Form onSubmit={editIndex == -1 ? handleAdd : handleShowEdit}>
+                <Modal.Body>
+                        <Form.Label htmlFor="nama" className="my-auto" >
                             Nama Makanan
                         </Form.Label>
                         <Form.Control
-                            type="text"
-                            name="nama"
-                            defaultValue={formData.nama}
-                            onChange={handleChange}
-                        />
-                    </Row>
+                                type="text"
+                                name="nama"
+                                id="nama"
+                                defaultValue={formData.nama}
+                                onChange={handleChange}
+                                className="mb-3"
+                            />
 
-                    <Row className="mb-4">
-                        <Form.Label className="my-auto">
-                        Kategori Makanan
+                        <Form.Label htmlFor="kategori" className="my-auto">
+                            Kategori Makanan
                         </Form.Label>
                         <Form.Select
                             name="kategori"
+                            id="kategori"
                             defaultValue={formData.kategori}
                             onChange={handleChange}
+                            className="mb-3"
                         >
                             <option value="" selected disabled hidden>
                             Pilih Kategori
@@ -197,38 +201,48 @@ const AddFood = () => {
                             <option value="Main Course">Main Courses</option>
                             <option value="Dessert">Desserts</option>
                         </Form.Select>
-                    </Row>
-
-                    <Row className="mb-4">
-                        <Form.Label className="my-auto">
+                        
+                        <Form.Label htmlFor="harga" className="my-auto">
                             Harga Makanan
                         </Form.Label>               
                         <Form.Control
                             type="number"
                             defaultValue={formData.harga}
                             name="harga"
+                            id="harga"
                             onChange={handleChange}
+                            className="mb-3"
                         />
-                    </Row>
 
-                    <Row className="mb-4">
-                        <Form.Label className="my-auto">
-                        Deskripsi Makanan
+                        <Form.Label htmlFor="deskripsi" className="my-auto">
+                            Deskripsi Makanan
                         </Form.Label>
                         <Form.Control
                             as="textarea"
                             name="deskripsi"
+                            id="deskripsi"
+                            rows={5}
                             defaultValue={formData.deskripsi}
                             onChange={handleChange}
-                        />
-                    </Row>
+                            className="mb-3"
+                        /> 
+                </Modal.Body>
 
-                    <Button variant="primary" type="submit">
+                <Modal.Footer className="d-flex justify-content-end">                       
+                    <Button variant="secondary" onClick={handleCloseModal} className="me-2">
                         {' '}
-                        Simpan
+                        Batal
                     </Button>
-                </Form>
-            </Modal.Body>
+                                    
+                    <Button variant="primary" type="submit">
+                        
+                        <FaSave/>
+                        {' '}
+                        
+                        Simpan
+                    </Button>    
+                </Modal.Footer>    
+            </Form> 
         </Modal>
     </>
   );
