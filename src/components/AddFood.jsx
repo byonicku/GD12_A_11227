@@ -235,10 +235,8 @@ const AddFood = () => {
                     </Button>
                                     
                     <Button variant="primary" type="submit">
-                        
                         <FaSave/>
                         {' '}
-                        
                         Simpan
                     </Button>    
                 </Modal.Footer>    
