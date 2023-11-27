@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import AddFood from "../components/AddFood";
 
 function DashboardPage() {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ function DashboardPage() {
     <Container className="mt-5">
         <h1 className="mb-3 border-bottom fw-bold">Dashboard</h1>
         <Row className="mb-4">
-            <Col md={4}>
+            <Col md={10}>
                 <Card className="h-100 justify-content-center">
                     <Card.Body>
                         <h4>Selamat datang,</h4>
@@ -50,6 +51,7 @@ function DashboardPage() {
                 </Card>
             </Col>
         </Row>
+        <AddFood />
     </Container>
   )
 }
